@@ -13,7 +13,8 @@
       // This ensures the app renders even if no API key is present.
       window.process = {
         env: {
-          API_KEY: '' // Leave empty for GitHub Pages demo. Chat will show offline message.
+          API_KEY: '', // Leave empty for GitHub Pages demo. Chat will show offline message.
+          GEMINI_API_KEY: '' 
         }
       };
     </script>
@@ -51,11 +52,11 @@
 <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
   }
 }
 </script>
