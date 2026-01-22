@@ -5,19 +5,22 @@ let aiClient: GoogleGenAI | null = null;
 
 // Helper to safely access environment variables in various environments (Vite, Webpack, Browser Polyfill)
 const getApiKey = (): string | undefined => {
+  // Check standard node process (handled by bundlers like Vite)
   try {
-    // Check standard node process (handled by bundlers)
-    if (typeof process !== 'undefined' && process.env?.API_KEY) {
-      return process.env.API_KEY;
+    if (typeof process !== 'undefined' && process.env) {
+      if (process.env.API_KEY) return process.env.API_KEY;
+      if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
     }
   } catch (e) {}
 
+  // Check browser window polyfill (for static GitHub Pages)
   try {
-    // Check browser window polyfill (for static GitHub Pages)
     // @ts-ignore
-    if (typeof window !== 'undefined' && window.process?.env?.API_KEY) {
+    if (typeof window !== 'undefined' && window.process?.env) {
       // @ts-ignore
-      return window.process.env.API_KEY;
+      if (window.process.env.API_KEY) return window.process.env.API_KEY;
+      // @ts-ignore
+      if (window.process.env.GEMINI_API_KEY) return window.process.env.GEMINI_API_KEY;
     }
   } catch (e) {}
   
@@ -77,7 +80,8 @@ export const sendMessageToGemini = async (
   }
 
   try {
-    const model = 'gemini-3-flash-preview';
+    // Updated to gemini-2.0-flash as per valid model list for this deployment
+    const model = 'gemini-2.0-flash';
 
     const chat = ai.chats.create({
       model: model,
