@@ -80,8 +80,7 @@ export const sendMessageToGemini = async (
   }
 
   try {
-    // Using gemini-2.0-flash as it's the current recommended preview model for this use case
-    // and was requested to replace older versions.
+    // Use gemini-2.0-flash as requested for stability and speed
     const model = 'gemini-2.0-flash';
 
     const chat = ai.chats.create({
