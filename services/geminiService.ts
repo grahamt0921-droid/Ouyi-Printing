@@ -1,8 +1,18 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-// Initialize Gemini
-// Note: process.env.API_KEY is injected by the environment.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize Gemini safely.
+// If process.env.API_KEY is empty (common in static GitHub deployments), we skip initialization
+// to prevent runtime errors, allowing the rest of the site to function.
+const apiKey = process.env.API_KEY;
+let ai: GoogleGenAI | null = null;
+
+if (apiKey) {
+  try {
+    ai = new GoogleGenAI({ apiKey: apiKey });
+  } catch (error) {
+    console.warn("Failed to initialize Gemini Client:", error);
+  }
+}
 
 const SYSTEM_INSTRUCTION = `
 You are "Ouyi AI," a printing and packaging specialist for Ouyi, a factory based in Shanghai, China.
@@ -31,6 +41,11 @@ export const sendMessageToGemini = async (
   history: { role: string; text: string }[],
   message: string
 ): Promise<string> => {
+  // Graceful fallback if API key is missing (e.g. GitHub Pages demo)
+  if (!ai) {
+    return "Thank you for your message. Our AI system is currently in 'Showcase Mode'. Please contact our team directly via the form below or email contact@ouyiprint.com for a personalized quote from our Shanghai factory.";
+  }
+
   try {
     const model = 'gemini-3-flash-preview';
 

@@ -9,6 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <script>
+      // Polyfill for process.env to prevent ReferenceError in browser environments (GitHub Pages, etc.)
+      // This ensures the app renders even if no API key is present.
+      window.process = {
+        env: {
+          API_KEY: '' // Leave empty for GitHub Pages demo. Chat will show offline message.
+        }
+      };
+    </script>
+    <script>
       tailwind.config = {
         theme: {
           extend: {
