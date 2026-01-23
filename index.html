@@ -9,16 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <script>
-      // Polyfill for process.env to prevent ReferenceError in browser environments (GitHub Pages, etc.)
-      // This ensures the app renders even if no API key is present.
-      window.process = {
-        env: {
-          API_KEY: '', // Leave empty for GitHub Pages demo. Chat will show offline message.
-          GEMINI_API_KEY: '' 
-        }
-      };
-    </script>
-    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -29,22 +19,8 @@
             colors: {
               primary: '#1e293b', // Slate 800
               secondary: '#475569', // Slate 600
-              accent: '#e11d48', // Rose 600
+              accent: '#e11d48', // Rose 600 (More vibrant, Chinese-inspired red/pink nuance for modern Shanghai vibe)
               paper: '#f8fafc', // Slate 50
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
-            },
-            animation: {
-              'fade-in': 'fadeIn 0.5s ease-out',
-              'fade-in-up': 'fadeInUp 0.5s ease-out',
             }
           }
         }
@@ -55,6 +31,7 @@
         background-color: #f8fafc;
         color: #0f172a;
       }
+      /* Hide scrollbar for clean UI in chat */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
@@ -63,23 +40,21 @@
         scrollbar-width: none;
       }
     </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "path": "https://esm.sh/path@^0.12.7"
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-  </body>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
